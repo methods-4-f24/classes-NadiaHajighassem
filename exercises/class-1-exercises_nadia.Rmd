@@ -50,16 +50,14 @@ mtext("20 points")
 2E1. 
 
 ```{r}
-
-# Your answer here.
-
+#(2) pr(rain|monday)
 ```
 
 2E2.
 
 ```{r}
 
-# Your answer here.
+# (3) The probability that it is monday gives that is raining.
 
 ```
 
@@ -67,7 +65,7 @@ mtext("20 points")
 
 ```{r}
 
-# Your answer here.
+# (1) pr(Monday|rain)
 
 ```
 
@@ -75,7 +73,7 @@ mtext("20 points")
 
 ```{r}
 
-# Discuss in pairs/groups. Ask me for a hint if you feel like it.
+# Probability is uncertainity, so saying the the probability of water is 0.7, is basically just our best guess. 
 
 ```
 
@@ -84,25 +82,64 @@ mtext("20 points")
 2M1.
 
 ```{r}
+# (1) YASSS
+likelihood = dbinom(3, size = 3, prob = 0.7) # your own belief vs what actually happens
 
-# Write your code here.
+# (2) YASSS
+likelihood = dbinom(3, size = 4, prob = 0.7)
 
+# (3) YASSS
+likelihood = dbinom(5, size = 7, prob = 0.7)
+print(paste("Yasss the likelihood is",likelihood, "slayyy"))
 ```
+## (1) The likelihood basically means, that there is 34% probability of getting water three out of three times. 
+## (2) The likelihood basically means, that there is 41% probability of getting water three out of four times. 
+## (3) The likelihood basically means, that there is 31% probability of getting water five out of seven times. 
 
 2M2.
 
 ```{r}
-
 # In the book, McElreath says that we can do much better than choosing a uniform prior for estimating the coverage of water. Is this what we are doing here? How does that impact our estimation?
 
+# define grid
+p_grid = seq(from = 0, to = 1, length.out=20)
+
+# define prior
+prior = c(rep(0,10),rep(1,10)) 
+
+
+# compute likelihood at each value in grid
+likelihood = dbinom(3, size = 3, prob = 0.7)
+
+# compute product of likelihood and prior
+unstd.posterior = likelihood * prior
+
+# standardize the posterior so it sums to 1
+posterior = unstd.posterior / sum(unstd.posterior)
+
+# plot the distribution
+plot(p_grid, posterior, type = "b",
+     xlab = "probability of water", ylab = "posterior_probability")
+mtext("20 points")
 ```
 
 2M3.
 
 ```{r}
-
 # Use the Bayes formula!
+bayesTheorem <- function(pA, pB, pBA) {
+  pAB <- pA * pBA / pB
+  return(pAB)
+}
 
+
+## Doneeeee
+PrEarth <- 0.5
+PrLandEarth <- 0.3
+PrLand <- 0.65
+
+## We did it 
+bayesTheorem(PrEarth, PrLand, PrLandEarth)
 ```
 
 For the exercises below, I highly suggest you to grab a piece of paper and try to solve the problems in a 'visual' way.
